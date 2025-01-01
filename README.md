@@ -1,54 +1,136 @@
-# Ai-Agents-Rec Crew
+# AI Agents for Medical Research and Reporting
 
-Welcome to the AiAgentsRec Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+This project leverages the `crew.ai` framework to create AI-driven agents that perform medical research and generate detailed reports based on user-provided symptoms. The system is modular, allowing the addition of custom tools and agents as needed.
 
-## Installation
+---
 
-Ensure you have Python >=3.10 <=3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+## **Features**
+1. **Researcher Agent**  
+   Conducts thorough research about the provided topic (symptoms) and gathers relevant information, including:
+   - Disease name
+   - Possible causes
+   - Medications
+   - Prevention techniques
 
-First, if you haven't already, install uv:
+2. **Reporting Analyst Agent**  
+   Processes research findings into a comprehensive medical report formatted in Markdown.
 
-```bash
-pip install uv
+3. **Custom Tools**  
+   - **CSV Search Tool**: Enables searching through a pre-defined medical dataset.
+   - **File Writer Tool**: (Optional) Saves results in various formats.
+
+---
+
+## **Setup Instructions**
+
+### **Prerequisites**
+- Python 3.8 or above
+- Virtual environment (recommended)
+- Required Python libraries:
+  - `crewai`
+  - `crewai_tools`
+  - `dotenv`
+  - `ollama` for embedding and LLM tasks
+
+---
+
+### **Installation**
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/Atharv-web/ai_agents_rec.git
+   cd ai_agents_rec
+   ```
+
+2. Set up a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate # On Windows, use `venv\Scripts\activate`
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Configure environment variables:  
+   Create a `.env` file to store sensitive credentials like API keys.
+
+---
+
+### **Usage**
+
+1. **Run the application**:
+   ```bash
+   python main.py
+   ```
+
+2. **Input symptoms**:
+   Enter symptoms in the prompt to initiate research and report generation. For example:
+   ```
+   Enter your symptoms here: fever and headache
+   ```
+
+3. **View generated output**:
+   The output will include research findings and a full-fledged medical report.
+
+4. **Exit the program**:
+   Type `exit` in the input prompt to stop the application.
+
+---
+
+## **Configuration**
+
+### **Agents Configuration (`agents.yaml`)**
+- `researcher`: Performs medical research based on user input.
+- `reporting_analyst`: Converts research findings into detailed Markdown reports.
+
+### **Tasks Configuration (`tasks.yaml`)**
+- `research_task`: Defines the research process and expected output.
+- `reporting_task`: Specifies the task for report generation.
+
+### **Tool Configuration**
+Tools like `CSVSearchTool` can be customized in the `crew.py` file. I used OLLAMA model as its an open-source model
+```python
+tool1 = CSVSearchTool(
+    csv="path_to_your_csv",
+    config=dict(
+        llm=dict(
+            provider="ollama",
+            config=dict(
+                model="llama3.2:3b-instruct-fp16",
+                temperature=0.1
+            ),
+        ),
+        embedder=dict(
+            provider="ollama",
+            config=dict(
+                model="nomic-embed-text",
+            ),
+        ),
+    )
+)
 ```
 
-Next, navigate to your project directory and install the dependencies:
+---
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
+## **File Overview**
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+1. **`main.py`**  
+   Entry point for the application. Runs the crew with user inputs for symptoms.
 
-- Modify `src/ai_agents_rec/config/agents.yaml` to define your agents
-- Modify `src/ai_agents_rec/config/tasks.yaml` to define your tasks
-- Modify `src/ai_agents_rec/crew.py` to add your own logic, tools and specific args
-- Modify `src/ai_agents_rec/main.py` to add custom inputs for your agents and tasks
+2. **`crew.py`**  
+   Defines the crew, agents, tools, and tasks. Includes configurations for `CSVSearchTool` and agent behaviors.
 
-## Running the Project
+3. **`agents.yaml`**  
+   Configuration file for agents with roles, goals, and backstories.
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+4. **`tasks.yaml`**  
+   Configuration file for tasks with descriptions, expected outputs, and assigned agents.
 
-```bash
-$ crewai run
-```
+---
 
-This command initializes the ai-agents-rec Crew, assembling the agents and assigning them tasks as defined in your configuration.
-
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The ai-agents-rec Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the AiAgentsRec Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+## **Future Enhancements**
+- Add more tools for advanced data analysis.
+- Include support for additional LLM providers.
+- Integrate a web interface for better user interaction.
