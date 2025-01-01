@@ -1,4 +1,4 @@
-# AI Agents for Medical Research and Reporting
+# MARS - Medical Assistant for Research and Symptoms
 
 This project leverages the `crew.ai` framework to create AI-driven agents that perform medical research and generate detailed reports based on user-provided symptoms. The system is modular, allowing the addition of custom tools and agents as needed.
 
