@@ -38,8 +38,8 @@ This project leverages the `crew.ai` framework to create AI-driven agents that p
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/Atharv-web/ai_agents_rec.git
-   cd ai_agents_rec
+   git clone https://github.com/Atharv-web/ai_agents.git
+   cd ai_agents
    ```
 
 2. Set up a virtual environment:
@@ -62,7 +62,7 @@ This project leverages the `crew.ai` framework to create AI-driven agents that p
 
 1. **Run the application**:
    ```bash
-   python main.py
+   python src/ai_agents_rec/main.py
    ```
 
 2. **Input symptoms**:
