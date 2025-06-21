@@ -17,12 +17,18 @@ def run():
     """
     Run the crew.
     """
+    print("TO END CONVERSATION..type this --> end/bye")
+    while True:
 
-    query = input("Enter the Topic: ")
-    inputs = {
-        'topic': query,
-        'current_year': str(datetime.now().year)
-    }
+        query = input("Query: " )
+        if query.lower() == "end/bye":
+            print("Thank you")
+            break
+        
+        inputs = {
+            'topic': query,
+            'current_year': str(datetime.now().year)
+        }
     
     try:
         Mars().crew().kickoff(inputs=inputs)
