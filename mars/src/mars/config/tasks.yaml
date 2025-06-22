@@ -1,17 +1,100 @@
-research_task:
+# research_task:
+#   description: >
+#     Conduct a thorough research about {topic}
+#     Make sure you find any interesting and relevant information given
+#     the current year is {current_year}.
+#   expected_output: >
+#     A list with 10 bullet points of the most relevant information about {topic}
+#   agent: researcher
+
+# reporting_task:
+#   description: >
+#     Review the context you got and expand each topic into a full section for a report.
+#     Make sure the report is detailed and contains any and all relevant information.
+#   expected_output: >
+#     A fully fledged report with the main topics, each with a full section of information.
+#     Formatted as markdown without '```'
+#   agent: reporting_analyst
+
+
+research_task_1:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
+    Develop a comprehensive research strategy for the given {topic}. 
+    This includes identifying the most relevant academic databases (e.g., PubMed, MEDLINE, Scopus, Web of Science), key search terms, and inclusion/exclusion criteria for the literature search.
+    The strategy should also outline a plan for identifying seminal works and highly cited articles to establish a foundational understanding.
     the current year is {current_year}.
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
+    A structured document outlining the research strategy. This should include:
+      1. A list of recommended academic databases.
+      2. A primary and secondary set of keywords and search strings.
+      3. Clearly defined inclusion and exclusion criteria for study selection (e.g., publication date range, study types, language).
+      4. A brief justification for the chosen strategy.
   agent: researcher
 
-reporting_task:
+research_task_2:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Execute the research strategy to conduct a thorough search of the selected academic databases. Systematically screen the search results based on the defined inclusion/exclusion criteria.
+    Curate a list of the most relevant and high-quality research articles, including clinical trials, meta-analyses, systematic reviews, and key cohort studies.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
+    A curated list of research articles in a standardized format (e.g., BibTeX or a structured list with titles, authors, journal, publication year, and DOI). The list should be categorized by study type.
+  agent: researcher
+
+research_task_3:
+  description: >
+    Critically appraise the methodological quality and reliability of the curated research articles. For each key article, evaluate the study design, sample size, statistical methods, potential for bias (e.g., selection bias, confounding factors), and the validity of the conclusions. 
+    Pay close attention to the hierarchy of evidence, giving more weight to systematic reviews and large, well-designed clinical trials.
+  expected_output: >
+    A summary of the critical appraisal for the top 5-10 most impactful articles. This summary should highlight the strengths and limitations of each study and provide an overall assessment of the evidence quality for the {topic}.
+  agent: researcher
+
+research_task_4:
+  description: >
+    Synthesize the findings from the appraised literature to identify key trends, significant discoveries, and existing gaps in the research on the {topic}. 
+    Trace the evolution of research in this area and identify any emerging methodologies or conflicting findings.
+  expected_output: >
+    A comprehensive synthesis of the research findings. 
+    This document should include:
+      1. An overview of the current state of research on the {topic}.
+      2. A summary of the key trends and major findings.
+      3. Identification of any controversies or areas of conflicting evidence.
+      4. A list of identified gaps in the current literature.
+  agent: researcher
+
+reporting_task_1:
+  description: >
+    Based on the synthesized research findings provided by the Academic Research Specialist, draft a concise and impactful executive summary. 
+    This summary should be understandable to a non-specialist audience and highlight the most critical findings and their implications.
+  expected_output: >
+    A well-structured executive summary of no more than 250 words.
+  agent: reporting_analyst
+
+reporting_task_2:
+  description: >
+    Transform the synthesized research and critical appraisal into a detailed and well-structured report. 
+    The report should be organized logically with clear headings and subheadings. 
+    It must present the information in a clear, objective, and easily digestible format. Where applicable, use tables and figures to summarize key data points.
+  expected_output: >
+    A A comprehensive report that includes:
+    1. An introduction to the {topic}.
+    2. A methodology section detailing the research strategy.
+    3. A detailed results section presenting the key findings from the literature.
+    4. A discussion section that interprets the findings, discusses their implications, and highlights the limitations of the current body of research.
+    5. A conclusion that summarizes the main points of the report.
+  agent: reporting_analyst
+
+# reporting_task_3:
+#   description: >
+#     Identify key data points and trends from the research that can be effectively communicated through visual aids. 
+#     Create clear and informative visualizations such as charts, graphs, or infographics to be embedded within the final report. 
+#     Ensure all visualizations are accurately labeled and referenced.
+#   expected_output: >
+#     A set of 2-3 high-quality visualizations (e.g., bar charts, line graphs, flowcharts) that visually represent the key research findings.
+#   agent: reporting_analyst
+
+reporting_task_3:
+  description: >
+    Review the entire report for clarity, coherence, accuracy, and grammatical correctness. 
+    Ensure a consistent and professional formatting throughout the document.
+  expected_output: >
+    A well-structured executive summary of no more than 250 words.
   agent: reporting_analyst

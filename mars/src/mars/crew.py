@@ -2,9 +2,13 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
+from crewai_tools import SerperDevTool
+
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
+
+websearch_tool = SerperDevTool(n_results = 4)
 
 @CrewBase
 class Mars():
@@ -23,6 +27,7 @@ class Mars():
     def researcher(self) -> Agent:
         return Agent(
             config=self.agents_config['researcher'], # type: ignore[index]
+            tools = [websearch_tool],
             verbose=True
         )
 
@@ -36,18 +41,58 @@ class Mars():
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+    # RESEARCH AGENT TASKS
     @task
-    def research_task(self) -> Task:
+    def research_task_1(self) -> Task:
         return Task(
-            config=self.tasks_config['research_task'], # type: ignore[index]
+            config=self.tasks_config['research_task_1'], # type: ignore[index]
         )
 
     @task
-    def reporting_task(self) -> Task:
+    def research_task_2(self) -> Task:
         return Task(
-            config=self.tasks_config['reporting_task'], # type: ignore[index]
-            output_file='report.md'
+            config=self.tasks_config['research_task_2'], # type: ignore[index]
         )
+
+    @task
+    def research_task_3(self) -> Task:
+        return Task(
+            config=self.tasks_config['research_task_3'], # type: ignore[index]
+        )
+
+    @task
+    def research_task_4(self) -> Task:
+        return Task(
+            config=self.tasks_config['research_task_4'], # type: ignore[index]
+        )
+    
+    
+    # REPORTING ANALYST AGENT TASKS
+    @task
+    def reporting_task_1(self) -> Task:
+        return Task(
+            config=self.tasks_config['reporting_task_1'], # type: ignore[index]
+        )
+
+    @task
+    def reporting_task_2(self) -> Task:
+        return Task(
+            config=self.tasks_config['reporting_task_2'], # type: ignore[index]
+        )
+
+    @task
+    def reporting_task_3(self) -> Task:
+        return Task(
+            config=self.tasks_config['reporting_task_3'], # type: ignore[index]
+            output_file = 'report.md'
+        )
+
+    # @task
+    # def reporting_task_4(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['reporting_task_4'], # type: ignore[index]
+    #         output_file='report.md'
+    #     )
 
     @crew
     def crew(self) -> Crew:
@@ -59,7 +104,7 @@ class Mars():
             agents=self.agents, # Automatically created by the @agent decorator
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
-            # memory = True,
+            memory = True,
             verbose=True,
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
