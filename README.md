@@ -62,21 +62,6 @@ python mars/src/mars/main.py
 
 ---
 
-## File Structure
-
-```
-mars/
-├── agents-tasks.txt      # Definitions of research and reporting tasks
-├── knowledge/            # User preferences, knowledge base
-├── results/              # Generated research reports and outputs
-└── src/
-    └── mars/
-        ├── main.py       # Entry point for running MARS
-        └── crew.py       # CrewAI implementation and agent/task orchestration
-```
-
----
-
 ## Example Output
 
 Reports include:
@@ -86,3 +71,5 @@ Reports include:
 - Key trends, gaps, and controversies
 - Data visualizations
 - References in standard citation style
+
+---
