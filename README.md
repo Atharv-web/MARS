@@ -3,6 +3,8 @@
 MARS (Medical Assistant for Research Synthesis) is an AI-powered assistant that helps you **research topics in medicine** and **document them in structured, comprehensive reports**. 
 It automates the entire process—from developing research strategies to critical appraisal, synthesis, and professional report generation—making it ideal for medical researchers, clinicians, students, and anyone seeking evidence-based insights in medicine.
 
+This is a python/next js application. Backend is python, Frontend is Nextjs. The backend uses crewai framework to assist researchers to search and document research topics. Frontend is a simple nextjs application with simple, cool features with firebase integration for authentication.
+
 ---
 
 ## Features
@@ -13,7 +15,6 @@ It automates the entire process—from developing research strategies to critica
 - **Synthesis & Trend Identification**: Summarizes key findings, trends, controversies, and knowledge gaps in the field.
 - **Executive Summary**: Produces concise summaries suitable for non-specialist audiences.
 - **Detailed Report Generation**: Creates structured reports with introduction, methodology, results, discussion, and conclusions.
-- **Data Visualization**: Generates charts, graphs, and infographics for clear communication of findings.
 - **Professional Formatting**: Outputs clean, error-free Markdown (or PDF) reports with title pages, tables of contents, and references.
 
 ---
@@ -25,40 +26,46 @@ It automates the entire process—from developing research strategies to critica
     - Develop a research strategy tailored to your topic.
     - Search and curate the latest and most relevant literature.
     - Critically appraise and synthesize the findings.
-    - Generate visualizations, executive summaries, and full reports.
-3. **Receive Outputs**: Get a well-formatted, referenced document with all findings, trends, and visualizations.
+3. **Receive Outputs**: Get a well-formatted, referenced document with all findings, trends etc.
 
 ---
 
 ## Getting Started
 
-### Prerequisites
-
-- Python 3.8+
-- [CrewAI](https://docs.crewai.com/)
-- Other dependencies as specified in `requirements.txt`
-- API keys for search tools (e.g., SerperDev) and `.env` file if using web tools
-
-### Installation
+### Installation - frontend and backend
 
 ```bash
 git clone https://github.com/Atharv-web/MARS.git
 cd MARS
+cd med-researcher
+npm install
+```
+
+```bash
+cd MARS
+cd researcher
 pip install -r requirements.txt
 ```
 
 ### Usage
 
-1. **Configure Agents and Tasks**: Edit `mars/agents-tasks.txt` to define the sequence of research and reporting tasks.
-2. **Run the Main Script**:
+1. **Configure Backend**: run the python based backend
 
 ```bash
-python mars/src/mars/main.py
+cd researcher/scr/researcher
+uvicorn main:app --reload
 ```
 
-3. **Provide Topic Input**: Replace or supply the desired medical topic when prompted or configure input in the script.
+2. **Run frontend Script**:
 
-4. **Review Outputs**: Find generated reports and visualizations in the `mars/results/` directory.
+```bash
+cd med-researcher
+npm run dev
+```
+
+3. **Provide Topic Input**: Provide your input.
+
+4. **Review Outputs**: Find research report in the `researcher/src/results/` directory.
 
 ---
 
@@ -69,7 +76,6 @@ Reports include:
 - Executive summary
 - Introduction, methodology, results, discussion, and conclusion
 - Key trends, gaps, and controversies
-- Data visualizations
 - References in standard citation style
 
 ---
