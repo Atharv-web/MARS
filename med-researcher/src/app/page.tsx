@@ -130,7 +130,7 @@ export default function Home() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-        Welcome
+        Welcome to MARS 
         </motion.h1>
         <motion.p
           className="text-xl lg:text-xl mb-8 max-w-2xl"
