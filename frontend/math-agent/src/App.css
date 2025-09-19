@@ -1,0 +1,77 @@
+/* Root container */
+#root {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightslategray;
+}
+
+/* App container */
+.app {
+  max-width: 650px;
+  width: 100%;
+  margin: auto;
+  font-family: Inter, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat area */
+.chat {
+  max-height: 70vh;
+  padding: 12px;
+  border: 3px;
+  border-radius: 8px;
+  /* background: lightgray; */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Chat bubbles */
+.bubble {
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 80%;
+  box-shadow: 0px 1px 3px lightgray;
+}
+
+.bubble.user {
+  background: lightblue;
+  align-self: flex-end;
+}
+
+.bubble.bot {
+  background: white;
+  align-self: flex-start;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid gray;
+  border-radius: 6px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: black;
+  color: whitesmoke;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: royalblue;
+}

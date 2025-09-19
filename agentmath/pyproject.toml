@@ -1,0 +1,27 @@
+[project]
+name = "agentmath"
+version = "0.1.0"
+description = "AgentMath using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai-tools[mcp]>=0.71.0",
+    "crewai[tools]>=0.157.0,<1.0.0",
+    "mcp>=1.14.0",
+    "sqlalchemy>=2.0.43",
+    "tavily-python",
+]
+
+[project.scripts]
+agentmath = "agentmath.main:run"
+run_crew = "agentmath.main:run"
+train = "agentmath.main:train"
+replay = "agentmath.main:replay"
+test = "agentmath.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
