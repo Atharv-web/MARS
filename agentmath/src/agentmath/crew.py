@@ -7,7 +7,6 @@ from mcp import StdioServerParameters
 import os,sys
 from dotenv import load_dotenv
 load_dotenv()
-from human_callback import custom_human_callback
 
 rag_tool = RagTool()
 rag_tool.add(r'C:\Users\Atharva\Desktop\MARS\agentmath\src\agentmath\MathData\mathbook.pdf', data_type="pdf_file")
@@ -52,7 +51,6 @@ class Agentmath():
     def math_task(self) -> Task:
         return Task(
             config=self.tasks_config['math_task'],
-            callback=custom_human_callback
         )
 
     @crew
@@ -63,5 +61,6 @@ class Agentmath():
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
+            memory=True,
             verbose=True,
         )

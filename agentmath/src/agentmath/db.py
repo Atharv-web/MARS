@@ -78,11 +78,11 @@ def wait_for_feedback_response(fb_id: int, timeout: int = 300, interval: int = 2
         time.sleep(interval)
     raise TimeoutError("No human feedback received in time.")
 
-# def get_feedback_request(req_id: int):
-#     """Fetch a feedback request by ID (for debugging or API use)."""
-#     conn = sqlite3.connect(db_path)
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM human_fb_req WHERE id=?", (req_id,))
-#     row = cursor.fetchone()
-#     conn.close()
-#     return row
+def get_feedback_request(req_id: int):
+    """Fetch a feedback request by ID (for debugging or API use)."""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM human_fb_req WHERE id=?", (req_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return row
