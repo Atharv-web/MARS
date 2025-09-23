@@ -3,18 +3,14 @@ import './App.css'
 
 export default function App(){
   const [messages, setMessages] = useState([])
-  const [text, setText] = useState('')
-  const [sessionId, setSessionId] = useState(null) 
-  const [polling, setPolling] = useState(null)
-  const [feedbackPrompt, setFeedbackPrompt] = useState(null)
-  const pollingRef = useRef(null)
-  const chatEndRef = useRef(null)
+  const [humanInputRequired, setHumanInputRequired] = useState(false);
+  const [inputPrompt, setInputPrompt] = useState('');
 
   function addMessage(author, content){
     setMessages(m=>[...m, {author,content}])
   }
 
-  async function sendQuery() {
+  async function sendQuery(){
     if(!text.trim()) return
     addMessage ('user', text)
     // start the backend sesssion
@@ -24,13 +20,9 @@ export default function App(){
       body: JSON.stringify({input: text})
     })
 
-    const data = await res.json()
-    setSessionId(data.sessionId)
-    addMessage('bot','Math Agent is processing....')
-    setText('')
-    
-    if(!polling){
-      setPolling(true)
+    if (res.status===202){
+      setHumanInputRequired(true)
+      setInputPrompt(res.data.prompt)
     }
   }
 
@@ -44,40 +36,6 @@ export default function App(){
     setFeedbackPrompt(null)
     addMessage('user', msg)
   }
-
-  // polling crewai session 
-  useEffect(() =>{
-    if(!polling) return
-    pollingRef.current = setInterval(async() => {
-      if(!sessionId) return
-      const r = await fetch(`http://localhost:8000/session/${sessionId}`)
-      const s = await r.json()
-
-      if (s.prompt && s.status === 'running'){
-        addMessage("bot",`what do u think?(feedback): \n${s.prompt}`)
-        setFeedbackPrompt(s.prompt)
-      }
-      if (s.status === 'completed'){
-        addMessage("bot",`Final Output:\n${s.output || 'no output captured..'}`)
-        clearInterval(pollingRef.current)
-        setPolling(false)
-        setSessionId(null)
-        setFeedbackPrompt(null)
-      }
-      if (s.status=== 'failed'){
-        addMessage("bot",`Math agent failed: ${s.error}`)
-        clearInterval(pollingRef.current)
-        setPolling(false)
-        setSessionId(null)
-        setFeedbackPrompt(null)
-      }
-    }, 1500)
-    return ()=> clearInterval(pollingRef.current)
-  }, [polling, sessionId])
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
 
   return (
     <div className='app'>
