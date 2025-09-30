@@ -50,7 +50,7 @@ class Mars():
     def final_report_creation_task(self) -> Task:
         return Task(
             config=self.tasks_config['final_report_creation_task'], # type: ignore[index]
-            output_file="results/{timestamp}_{safe_topic}.md"
+            output_file="results/{safe_topic}_{timestamp}.md"
         )
     
     @after_kickoff
