@@ -4,11 +4,11 @@ from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 from crewai_tools import SerperDevTool, FileWriterTool
 import os
-# from dotenv import load_dotenv
-# load_dotenv()
 
 search_tool = SerperDevTool()
 file_writer_tool = FileWriterTool()
+
+root_folder = os.path.dirname(os.path.abspath(__file__))
 
 @CrewBase
 class Mars():
@@ -20,7 +20,7 @@ class Mars():
     @agent
     def researcher(self) -> Agent:
         return Agent(
-            config=self.agents_config['researcher'], # type: ignore[index]
+            config=self.agents_config['researcher'],
             tools = [search_tool],
             verbose=True,
         )
@@ -28,7 +28,7 @@ class Mars():
     @agent
     def reporting_analyst(self) -> Agent:
         return Agent(
-            config=self.agents_config['reporting_analyst'], # type: ignore[index]
+            config=self.agents_config['reporting_analyst'],
             tools=[file_writer_tool],
             verbose=True,
         )
@@ -37,19 +37,19 @@ class Mars():
     @task
     def comprehensive_research_task(self) -> Task:
         return Task(
-            config=self.tasks_config['comprehensive_research_task'], # type: ignore[index]
+            config=self.tasks_config['comprehensive_research_task'],
         )
 
     @task
     def synthesis_and_analysis_task(self) -> Task:
         return Task(
-            config=self.tasks_config['synthesis_and_analysis_task'], # type: ignore[index]
+            config=self.tasks_config['synthesis_and_analysis_task'],
         )
     
     @task
     def final_report_creation_task(self) -> Task:
         return Task(
-            config=self.tasks_config['final_report_creation_task'], # type: ignore[index]
+            config=self.tasks_config['final_report_creation_task'],
             output_file="results/{safe_topic}_{timestamp}.md"
         )
     
@@ -57,7 +57,6 @@ class Mars():
     @staticmethod
     def format_folder(self,output):
         "Modify and delete the .md folders being created in the directory"
-        root_folder = r"C:\Users\Atharva\Desktop\MARS\researcher\src\researcher"
         files_deleted_count = 0
         try:
             for file_name in os.listdir(root_folder):
@@ -68,11 +67,10 @@ class Mars():
                         files_deleted_count+=1
                     except OSError as e:
                         print(f"Error occured in deleting {file_name}: {e}")
-        except FileNotFoundError:
-            # print(f"Directory named: {root_folder} not found")
-            return
+        except FileNotFoundError as e:
+            return {f"Error occured: {e}"}
         if files_deleted_count == 0:
-            print(f"No .md files present here Sire!!")
+            print(f"No .md files present here!!")
         else:
             print(f"\n Finished deleting {files_deleted_count} files")
 
