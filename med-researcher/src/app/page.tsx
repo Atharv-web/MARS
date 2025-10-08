@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { auth } from '@/lib/firebase';
 import { useAuth } from '@/hooks/useAuth';
 import { updateProfile } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 
 export default function Home() {
   const [topic, setTopic] = useState('');
@@ -49,7 +50,6 @@ export default function Home() {
     const email = (form[0] as HTMLInputElement).value;
     const username = (form[1] as HTMLInputElement).value;
     const password = (form[2] as HTMLInputElement).value;
-    // const username = (form[1])
 
     try{
       if (authMode === "signup"){
@@ -62,8 +62,9 @@ export default function Home() {
         await signInWithEmailAndPassword(auth,email,password);
       }
       setAuthMode(null);
-    } catch(error:any){
-      alert ("Authentication failed:" + error.message);
+    } catch(error: unknown){
+      const err = error as FirebaseError 
+      alert ("Authentication failed:" + err.message);
     }
   };
 
