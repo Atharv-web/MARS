@@ -29,16 +29,22 @@ export default function Home() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/research`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ input: topic })
       });
+      if (!res.ok){
+        const error = await res.json();
+        throw new Error(error.detail || "Research request failed");
+      }
       const data = await res.json();
       if (data.output_file) {
         setReportPath(data.output_file);
       } else {
         setReportContent(data.message);
       }
-    } catch {
-      setReportContent('Error running research.');
+    } catch (err){
+      console.error("Research error:", err)
+      setReportContent(err instanceof Error ? err.message :'Error running research.');
     } finally {
       setLoading(false);
     }
@@ -77,7 +83,10 @@ export default function Home() {
     if (!reportPath) return;
     (async () => {
       try {
-        const res = await fetch(`/api/report?file=${encodeURIComponent(reportPath)}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/report/${reportPath}`);
+        if (!res.ok){
+          throw new Error("Failed to fetch report") 
+        }
         const md = await res.text();
         setReportContent(md);
       } catch {
@@ -159,7 +168,7 @@ export default function Home() {
         </form>
 
         {reportContent && (
-          <div className="w-full max-w-3xl bg-white/10 p-6 rounded-lg text-left overflow-auto">
+          <div className="w-full max-w-3xl bg-white/10 p-6 rounded-lg text-left overflow-auto mt-6">
             <h2 className="text-2xl font-bold mb-4">Research Report</h2>
             <pre className="whitespace-pre-wrap break-words text-sm text-white bg-black/30 p-4 rounded">
               {reportContent}
