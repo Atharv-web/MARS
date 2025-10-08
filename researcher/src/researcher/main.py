@@ -2,7 +2,7 @@ import warnings
 import re
 from datetime import datetime
 from fastapi import FastAPI
-from crew import Mars
+from src.researcher.crew import Mars
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
