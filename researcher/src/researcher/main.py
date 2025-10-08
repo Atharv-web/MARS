@@ -47,7 +47,7 @@ async def run_research(request: UserRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred while running the crew: {str(e)}")
 
-@app.get(f"/report/{file_path:path}")
+@app.get("/report/{file_path:path}")
 async def get_report(file_path:str):
     """Serve the generated report file"""
     try:
