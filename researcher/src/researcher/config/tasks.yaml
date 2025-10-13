@@ -1,26 +1,151 @@
+# # task 1
+# comprehensive_research_task:
+#   description: >
+#     Conduct a thorough investigation into the {topic}. 
+#     Start with a broad search to identify key themes and effective search terms, then perform a deep dive to find the most credible and relevant sources.
+#     Focus on academic papers, blogs, and reports that are highly relevant to the {topic}.
+#   expected_output: >
+#     An annotated bibliography of the top 10 sources. Each entry must include:
+#     - Title
+#     - A summary of its core findings that are relevant to {topic}. 
+#   agent: researcher
+
+# # task 2
+# synthesis_and_analysis_task:
+#   description: >
+#     Analyze the provided research sources to create a single, comprehensive synthesis document.
+#     This document should narrate the current state of knowledge on {topic}, highlighting key trends, significant discoveries, and any major gaps or controversies in the research.
+#     This synthesis is the foundation for the final report.
+#   expected_output: >
+#     A detailed synthesis report (approx. 800-1200 words) outlining:
+#     - The current state of research on {topic}.
+#     - Major findings and trends.
+#     - Key controversies or knowledge gaps.
+#   context:
+#     - comprehensive_research_task
+#   agent: researcher
+
+# # task 3
+# final_report_creation_task:
+#   description: >
+#     Using the research synthesis on {topic}, write a complete, polished, and professional final report.
+#     The report must be well-structured, clear, and easy for a non-specialist to understand.
+#     Incorporate all necessary sections including a title, introduction, findings, discussion, and conclusion.
+#     Format the entire document professionally and include a list of references in APA style at the end.
+#   expected_output: >
+#     A final, publication-ready report in a single Markdown file.
+#     The report must be fully formatted, grammatically perfect, and include a title page, a logical structure, and a complete reference list. Formatted as markdown without '```'
+
+#   context:
+#     - synthesis_and_analysis_task
+#   agent: reporting_analyst
+
 # task 1
 comprehensive_research_task:
   description: >
-    Conduct a thorough investigation into the {topic}. 
-    Start with a broad search to identify key themes and effective search terms, then perform a deep dive to find the most credible and relevant sources.
-    Focus on academic papers, blogs, and reports that are highly relevant to the {topic}.
+    Research {topic} using this systematic approach:
+    
+    Step 1 - Initial Exploration:
+    First, conduct 2-3 broad searches to understand the research landscape. Identify key
+    terms, major researchers, and primary themes. Think: "What are the main questions
+    researchers are asking about {topic}?"
+    
+    Step 2 - Targeted Deep Research:
+    Using insights from Step 1, search for 10 high-quality sources. Prioritize in this order:
+    1. Peer-reviewed papers from last 5 years (unless seminal older works exist)
+    2. Reports from recognized institutions (WHO, NIH, universities)
+    3. Expert blog posts or articles with clear author credentials
+    
+    For each potential source, ask yourself:
+    - Is the author/institution authoritative? (Check credentials, affiliation)
+    - Is the methodology sound? (Look for primary research, clear methods)
+    - Is it directly relevant to {topic}? (Not tangential)
+    - Is it recent enough to reflect current understanding?
+    
+    Step 3 - Validation:
+    Before finalizing your 10 sources, verify that:
+    - At least 6 are peer-reviewed academic sources
+    - Sources represent diverse perspectives (not all from one research group)
+    - Key claims appear in multiple sources (triangulation)
+    - You can clearly explain why each source made the cut
+    
+    Quality standard: Each source should teach you something significant about {topic}
+    that you couldn't learn from general knowledge.
+  
   expected_output: >
-    An annotated bibliography of the top 10 sources. Each entry must include:
-    - Title
-    - A summary of its core findings that are relevant to {topic}. 
+    A bibliography of exactly 10 sources. For each source provide:
+    
+    1. Citation: Title, Author(s), Publication/Institution, Year, URL
+    
+    2. Source Type & Credibility (2-3 sentences):
+       Example: "Peer-reviewed study published in Nature Medicine. Lead author is director
+       of epidemiology at Johns Hopkins. Cited 450+ times, indicating high impact."
+    
+    3. Core Findings Summary (150-200 words):
+       - What question did this source address?
+       - What methods were used? (if research study)
+       - What did they find that's relevant to {topic}?
+       - What limitations did they note?
+       - Why does this matter for understanding {topic}?
+    
+    Format as a numbered list (1-10) with clear section breaks between sources.
   agent: researcher
 
 # task 2
 synthesis_and_analysis_task:
   description: >
-    Analyze the provided research sources to create a single, comprehensive synthesis document.
-    This document should narrate the current state of knowledge on {topic}, highlighting key trends, significant discoveries, and any major gaps or controversies in the research.
-    This synthesis is the foundation for the final report.
+    Analyze the 10 research sources to create a synthesis of current knowledge on {topic}.
+    
+    Step 1 - Identify Patterns:
+    Read through all sources and note recurring themes. Ask yourself:
+    - What do most sources agree on?
+    - What 3-5 major themes emerge?
+    - Where do sources diverge or contradict?
+    
+    Step 2 - Organize by Theme:
+    Group findings into coherent themes. For each theme, extract:
+    - The consensus view (if one exists)
+    - Supporting evidence from multiple sources
+    - Notable disagreements or nuances
+    
+    Step 3 - Analyze Gaps:
+    Identify what's missing or uncertain:
+    - What questions remain unanswered?
+    - What populations or contexts are understudied?
+    - Where is evidence weak or conflicting?
+    
+    Step 4 - Evaluate Overall Strength:
+    Step back and assess: How robust is our current understanding of {topic}?
+    What can we say with confidence? What requires more research?
+    
+    Writing approach: Tell a story about what we know. Use clear topic sentences.
+    Connect ideas with transitions. Support every claim with specific source references.
+  
   expected_output: >
-    A detailed synthesis report (approx. 800-1200 words) outlining:
-    - The current state of research on {topic}.
-    - Major findings and trends.
-    - Key controversies or knowledge gaps.
+    A synthesis report of 800-1200 words with these sections:
+    
+    **Current Understanding** (300-400 words):
+    What do we know about {topic}? Present 3-5 major themes with supporting evidence.
+    Example structure: "Research consistently shows that X [cite sources]. However,
+    recent studies suggest that Y [cite sources]."
+    
+    **Key Findings & Trends** (250-350 words):
+    What are the most important discoveries? What patterns are emerging? Highlight
+    significant findings that advance understanding.
+    
+    **Gaps & Controversies** (200-300 words):
+    What remains unclear? Where do researchers disagree? What methodological challenges
+    exist? Be specific about what we don't know.
+    
+    **Implications** (100-150 words):
+    What does this body of research tell us? What directions should future research take?
+    
+    Requirements:
+    - Write in flowing paragraphs (no bullet points)
+    - Use active voice and present tense for established findings
+    - Reference specific sources when making claims
+    - Maintain objective tone
+  
   context:
     - comprehensive_research_task
   agent: researcher
@@ -28,14 +153,80 @@ synthesis_and_analysis_task:
 # task 3
 final_report_creation_task:
   description: >
-    Using the research synthesis on {topic}, write a complete, polished, and professional final report.
-    The report must be well-structured, clear, and easy for a non-specialist to understand.
-    Incorporate all necessary sections including a title, introduction, findings, discussion, and conclusion.
-    Format the entire document professionally and include a list of references in APA style at the end.
+    Transform the synthesis into a publication-ready report on {topic}.
+    
+    Step 1 - Plan Structure:
+    Review the synthesis and decide how to organize the final report. What story will
+    you tell? What structure serves the reader best?
+    
+    Step 2 - Draft Sections:
+    Write each section focusing on clarity and flow:
+    
+    - Executive Summary: Distill the entire report into 200-250 words. A reader should
+      understand the key findings from this alone.
+    
+    - Introduction: Provide context. Why does {topic} matter? What will this report cover?
+      Define key terms. (300-400 words)
+    
+    - Findings: Present the main discoveries organized by theme. Use subheadings (###).
+      Each theme should have clear topic sentences and supporting evidence. (600-800 words)
+    
+    - Discussion: Interpret what the findings mean. Address nuances, limitations, and
+      implications. Connect to broader context. (400-500 words)
+    
+    - Conclusion: Summarize key takeaways and implications. What should readers remember?
+      (200-250 words)
+    
+    Step 3 - Polish:
+    - Check that every paragraph has a clear purpose
+    - Ensure smooth transitions between sections
+    - Verify all claims are supported by synthesis sources
+    - Define any technical terms
+    - Remove jargon; use plain language where possible
+    
+    Step 4 - Format References:
+    List all 10 sources in APA 7th edition format, alphabetically by author surname.
+    
+    Quality checks:
+    - Can a non-specialist understand this?
+    - Does each section flow logically to the next?
+    - Are claims specific and evidenced?
+    - Is formatting consistent?
+  
   expected_output: >
-    A final, publication-ready report in a single Markdown file.
-    The report must be fully formatted, grammatically perfect, and include a title page, a logical structure, and a complete reference list. Formatted as markdown without '```'
-
+    A complete report formatted in Markdown with:
+    
+    # [Report Title on {topic}]
+    *Date*
+    
+    ## Executive Summary
+    [200-250 words]
+    
+    ## Introduction
+    [300-400 words providing context and scope]
+    
+    ## Key Findings
+    [600-800 words organized with ### subheadings by theme]
+    
+    ## Discussion
+    [400-500 words interpreting significance and limitations]
+    
+    ## Conclusion
+    [200-250 words summarizing key takeaways]
+    
+    ## References
+    [All 10 sources in APA format]
+    
+    Total length: 1800-2500 words excluding references
+    
+    Requirements:
+    - Write in third person, active voice
+    - Use paragraphs, not bullet points in main text
+    - Define technical terms on first use
+    - Professional but accessible language
+    - Perfect grammar and spelling
+    - No markdown code fences wrapping the document
+  
   context:
-    - synthesis_and_analysis_task
+    - synthesis_and_analysis_task  
   agent: reporting_analyst
