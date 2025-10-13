@@ -43,108 +43,44 @@
 # task 1
 comprehensive_research_task:
   description: >
-    Research {topic} using this systematic approach:
-    
-    Step 1 - Initial Exploration:
-    First, conduct 2-3 broad searches to understand the research landscape. Identify key
-    terms, major researchers, and primary themes. Think: "What are the main questions
-    researchers are asking about {topic}?"
-    
-    Step 2 - Targeted Deep Research:
-    Using insights from Step 1, search for 10 high-quality sources. Prioritize in this order:
-    1. Peer-reviewed papers from last 5 years (unless seminal older works exist)
-    2. Reports from recognized institutions (WHO, NIH, universities)
-    3. Expert blog posts or articles with clear author credentials
-    
-    For each potential source, ask yourself:
-    - Is the author/institution authoritative? (Check credentials, affiliation)
-    - Is the methodology sound? (Look for primary research, clear methods)
-    - Is it directly relevant to {topic}? (Not tangential)
-    - Is it recent enough to reflect current understanding?
-    
-    Step 3 - Validation:
-    Before finalizing your 10 sources, verify that:
-    - At least 6 are peer-reviewed academic sources
-    - Sources represent diverse perspectives (not all from one research group)
-    - Key claims appear in multiple sources (triangulation)
-    - You can clearly explain why each source made the cut
-    
-    Quality standard: Each source should teach you something significant about {topic}
-    that you couldn't learn from general knowledge.
+    Research {topic} in medical and biological literature. Start with systematic searches
+    in PubMed, Google Scholar, and institutional databases to map the research landscape.
+    Identify 10 high-quality sources prioritizing: (1) peer-reviewed studies and systematic
+    reviews from last 5 years, (2) clinical guidelines from recognized medical institutions,
+    (3) reports from health organizations (WHO, NIH, CDC). Evaluate each source for study
+    design quality, sample size adequacy, statistical methods, conflict of interest
+    disclosures, and citation impact. Ensure representation of diverse research groups
+    and triangulate key findings across studies.
   
   expected_output: >
-    A bibliography of exactly 10 sources. For each source provide:
-    
-    1. Citation: Title, Author(s), Publication/Institution, Year, URL
-    
-    2. Source Type & Credibility (2-3 sentences):
-       Example: "Peer-reviewed study published in Nature Medicine. Lead author is director
-       of epidemiology at Johns Hopkins. Cited 450+ times, indicating high impact."
-    
-    3. Core Findings Summary (150-200 words):
-       - What question did this source address?
-       - What methods were used? (if research study)
-       - What did they find that's relevant to {topic}?
-       - What limitations did they note?
-       - Why does this matter for understanding {topic}?
-    
-    Format as a numbered list (1-10) with clear section breaks between sources.
+    Annotated bibliography of 10 sources. Each entry includes: complete citation with
+    DOI/PMID when available; source type and credibility assessment (journal impact factor,
+    study design, institution); comprehensive summary covering research question, methodology,
+    sample characteristics, key findings, statistical significance, limitations, and clinical
+    relevance to {topic}.
+  
   agent: researcher
 
 # task 2
 synthesis_and_analysis_task:
   description: >
-    Analyze the 10 research sources to create a synthesis of current knowledge on {topic}.
-    
-    Step 1 - Identify Patterns:
-    Read through all sources and note recurring themes. Ask yourself:
-    - What do most sources agree on?
-    - What 3-5 major themes emerge?
-    - Where do sources diverge or contradict?
-    
-    Step 2 - Organize by Theme:
-    Group findings into coherent themes. For each theme, extract:
-    - The consensus view (if one exists)
-    - Supporting evidence from multiple sources
-    - Notable disagreements or nuances
-    
-    Step 3 - Analyze Gaps:
-    Identify what's missing or uncertain:
-    - What questions remain unanswered?
-    - What populations or contexts are understudied?
-    - Where is evidence weak or conflicting?
-    
-    Step 4 - Evaluate Overall Strength:
-    Step back and assess: How robust is our current understanding of {topic}?
-    What can we say with confidence? What requires more research?
-    
-    Writing approach: Tell a story about what we know. Use clear topic sentences.
-    Connect ideas with transitions. Support every claim with specific source references.
+    Synthesize the scientific literature into a cohesive analysis of current biomedical
+    knowledge on {topic}. Identify patterns in findings across studies, noting consistency
+    of effects, dose-response relationships, or mechanistic pathways. Organize evidence
+    thematically by: pathophysiology, clinical outcomes, therapeutic approaches, or
+    diagnostic methods as appropriate. Present level of evidence for key claims (e.g.,
+    multiple RCTs vs. observational studies). Address conflicting results by examining
+    methodological differences, population variations, or temporal factors. Identify
+    research gaps including understudied populations, missing mechanistic links, or
+    methodological limitations. Maintain scientific precision in terminology.
   
   expected_output: >
-    A synthesis report of 800-1200 words with these sections:
-    
-    **Current Understanding** (300-400 words):
-    What do we know about {topic}? Present 3-5 major themes with supporting evidence.
-    Example structure: "Research consistently shows that X [cite sources]. However,
-    recent studies suggest that Y [cite sources]."
-    
-    **Key Findings & Trends** (250-350 words):
-    What are the most important discoveries? What patterns are emerging? Highlight
-    significant findings that advance understanding.
-    
-    **Gaps & Controversies** (200-300 words):
-    What remains unclear? Where do researchers disagree? What methodological challenges
-    exist? Be specific about what we don't know.
-    
-    **Implications** (100-150 words):
-    What does this body of research tell us? What directions should future research take?
-    
-    Requirements:
-    - Write in flowing paragraphs (no bullet points)
-    - Use active voice and present tense for established findings
-    - Reference specific sources when making claims
-    - Maintain objective tone
+    Scientific synthesis (800-1200 words) structured as: Current Evidence Base (major
+    findings with strength of evidence), Key Discoveries and Mechanisms (significant
+    advances in understanding), Controversies and Inconsistencies (conflicting findings
+    with methodological context), and Research Gaps (understudied areas and limitations).
+    Use precise biomedical terminology, cite specific studies for claims, and indicate
+    evidence quality.
   
   context:
     - comprehensive_research_task
@@ -153,80 +89,25 @@ synthesis_and_analysis_task:
 # task 3
 final_report_creation_task:
   description: >
-    Transform the synthesis into a publication-ready report on {topic}.
-    
-    Step 1 - Plan Structure:
-    Review the synthesis and decide how to organize the final report. What story will
-    you tell? What structure serves the reader best?
-    
-    Step 2 - Draft Sections:
-    Write each section focusing on clarity and flow:
-    
-    - Executive Summary: Distill the entire report into 200-250 words. A reader should
-      understand the key findings from this alone.
-    
-    - Introduction: Provide context. Why does {topic} matter? What will this report cover?
-      Define key terms. (300-400 words)
-    
-    - Findings: Present the main discoveries organized by theme. Use subheadings (###).
-      Each theme should have clear topic sentences and supporting evidence. (600-800 words)
-    
-    - Discussion: Interpret what the findings mean. Address nuances, limitations, and
-      implications. Connect to broader context. (400-500 words)
-    
-    - Conclusion: Summarize key takeaways and implications. What should readers remember?
-      (200-250 words)
-    
-    Step 3 - Polish:
-    - Check that every paragraph has a clear purpose
-    - Ensure smooth transitions between sections
-    - Verify all claims are supported by synthesis sources
-    - Define any technical terms
-    - Remove jargon; use plain language where possible
-    
-    Step 4 - Format References:
-    List all 10 sources in APA 7th edition format, alphabetically by author surname.
-    
-    Quality checks:
-    - Can a non-specialist understand this?
-    - Does each section flow logically to the next?
-    - Are claims specific and evidenced?
-    - Is formatting consistent?
+    Create a scientific report from the synthesis suitable for clinical or research
+    audiences. Structure: executive summary highlighting clinical significance, introduction
+    establishing medical context and scope, findings organized by biological mechanism
+    or clinical domain, discussion interpreting evidence quality and clinical implications,
+    and conclusion addressing research directions and translational potential. Maintain
+    scientific rigor while ensuring clarity. Use standard medical abbreviations after
+    definition, include relevant clinical parameters, and reference evidence strength
+    for key claims. Format references in AMA or APA style as appropriate for medical
+    literature.
   
   expected_output: >
-    A complete report formatted in Markdown with:
-    
-    # [Report Title on {topic}]
-    *Date*
-    
-    ## Executive Summary
-    [200-250 words]
-    
-    ## Introduction
-    [300-400 words providing context and scope]
-    
-    ## Key Findings
-    [600-800 words organized with ### subheadings by theme]
-    
-    ## Discussion
-    [400-500 words interpreting significance and limitations]
-    
-    ## Conclusion
-    [200-250 words summarizing key takeaways]
-    
-    ## References
-    [All 10 sources in APA format]
-    
-    Total length: 1800-2500 words excluding references
-    
-    Requirements:
-    - Write in third person, active voice
-    - Use paragraphs, not bullet points in main text
-    - Define technical terms on first use
-    - Professional but accessible language
-    - Perfect grammar and spelling
-    - No markdown code fences wrapping the document
+    Complete medical research report (1800-2500 words) in Markdown format with: Executive
+    Summary (clinical significance and key findings), Introduction (medical background
+    and research scope), Findings (organized by mechanism/domain with clear subheadings),
+    Discussion (evidence interpretation, clinical implications, study limitations),
+    Conclusion (summary and research directions), and References (APA format with DOI/PMID).
+    Maintain scientific precision, define specialized terms, use active voice, and ensure
+    appropriate hedging for uncertain findings.
   
   context:
-    - synthesis_and_analysis_task  
+    - synthesis_and_analysis_task
   agent: reporting_analyst
