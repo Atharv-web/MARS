@@ -53,6 +53,11 @@ export function createReport(topic: string, slug: string): ReportRecord {
   const id = randomUUID();
   const now = new Date().toISOString();
 
+  // slugify() returns "" for topics with no [a-z0-9] characters (pure
+  // punctuation or non-Latin scripts). Fall back to the report's own unique id
+  // so every report still has a distinct, non-empty slug.
+  const finalSlug = slug || `report-${id.slice(0, 8)}`;
+
   db.prepare(`
     INSERT INTO reports (
       id, topic, slug, status, created_at, updated_at
@@ -62,7 +67,7 @@ export function createReport(topic: string, slug: string): ReportRecord {
   `).run({
     id,
     topic,
-    slug,
+    slug: finalSlug,
     createdAt: now,
     updatedAt: now,
   });

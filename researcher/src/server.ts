@@ -57,7 +57,9 @@ app.get("/api/health", (_request, response) => {
 
 app.post("/api/research", researchLimiter, requireApiToken, async (request, response) => {
   const bodySchema = z.object({
-    topic: z.string().min(3).max(300),
+    // Trim BEFORE checking length, so a whitespace-only topic (e.g. "   ")
+    // can't pass min(3) and then collapse to an empty string downstream.
+    topic: z.string().trim().min(3).max(300),
   });
 
   const parsed = bodySchema.safeParse(request.body);
@@ -76,7 +78,8 @@ app.post("/api/research", researchLimiter, requireApiToken, async (request, resp
     return;
   }
 
-  const topic = parsed.data.topic.trim();
+  // Already trimmed by the schema above.
+  const topic = parsed.data.topic;
   const report = createReport(topic, slugify(topic));
 
   void runResearchPipeline(report.id, topic);
@@ -108,6 +111,31 @@ app.get("/api/reports/:reportId", (request, response) => {
 
   response.json(report);
 });
+
+// Centralized error handler. Without this, body-parser failures (malformed JSON,
+// oversized payloads) fall through to Express's default handler, which echoes a
+// stack trace with file paths. This returns a generic JSON error instead and
+// keeps internal details private. Must be registered after all routes.
+app.use(
+  (error: unknown, _request: Request, response: Response, _next: NextFunction) => {
+    const status =
+      (error as { status?: number; statusCode?: number }).status ??
+      (error as { statusCode?: number }).statusCode ??
+      500;
+
+    if (status === 400) {
+      response.status(400).json({ error: "Invalid request body." });
+      return;
+    }
+    if (status === 413) {
+      response.status(413).json({ error: "Request body too large." });
+      return;
+    }
+
+    console.error("Unhandled request error:", error);
+    response.status(500).json({ error: "Something went wrong." });
+  },
+);
 
 const reconciled = failStaleReports();
 if (reconciled > 0) {
