@@ -1,3 +1,24 @@
+# secrets / env (all variants)
 .env
+.env.*
+!.env.example
+
+# dependencies
+node_modules/
+
+# build output
+dist/
+*.tsbuildinfo
+
+# local SQLite database (contains report contents)
+data/
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# misc
 __pycache__/
 .DS_Store
+*.pem
